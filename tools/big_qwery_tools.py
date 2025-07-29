@@ -2,10 +2,6 @@ from typing import List, Dict
 from google.cloud import bigquery
 import os
 import pandas as pd
-from dotenv import load_dotenv
-
-load_dotenv()
-
 
 def get_table_schema() -> list[dict]:
     """

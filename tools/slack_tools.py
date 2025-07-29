@@ -1,16 +1,9 @@
 import json
-from dotenv import load_dotenv
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from google.cloud import storage
 from io import BytesIO
 import os
-load_dotenv()
-
-SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
-CHANNEL_NAME = os.getenv("CHANNEL_NAME")
-CHANNEL_ID = os.getenv("CHANNEL_ID")
-
 
 def send_to_slack_str(result_data: str) -> str:
     """
@@ -25,6 +18,10 @@ def send_to_slack_str(result_data: str) -> str:
     Raises:
         Exception: If the Slack API request fails or responds with an error.
     """
+
+    SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
+    CHANNEL_NAME = os.getenv("CHANNEL_NAME")
+    CHANNEL_ID = os.getenv("CHANNEL_ID")
 
     client = WebClient(token=SLACK_BOT_TOKEN)
 
@@ -62,6 +59,10 @@ def send_to_slack_visual(routing_image: list[dict]) -> dict:
         ValueError: If required keys are missing or GCS path format is invalid.
         RuntimeError: If an image upload to Slack fails.
     """
+
+    SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
+    CHANNEL_NAME = os.getenv("CHANNEL_NAME")
+    CHANNEL_ID = os.getenv("CHANNEL_ID")
 
     client = WebClient(token=SLACK_BOT_TOKEN, timeout=15)
     gcs_client = storage.Client()

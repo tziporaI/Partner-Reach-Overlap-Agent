@@ -6,12 +6,6 @@ import matplotlib.pyplot as plt
 import os
 from datetime import datetime
 from google.cloud import storage
-from dotenv import load_dotenv
-
-load_dotenv()
-
-BUCKET_NAME = os.getenv("BUCKET_NAME")
-
 
 def upload_to_gcs(image_stream, folder="visualization/images", filename_prefix="chart"):
     """
@@ -38,6 +32,7 @@ def upload_to_gcs(image_stream, folder="visualization/images", filename_prefix="
         raise RuntimeError("Missing GOOGLE_APPLICATION_CREDENTIALS in .env!")
 
     client = storage.Client()
+    BUCKET_NAME = os.getenv("BUCKET_NAME")
     bucket = client.bucket(BUCKET_NAME)
     filename = f"{folder}/{filename_prefix}_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.jpg"
     blob = bucket.blob(filename)

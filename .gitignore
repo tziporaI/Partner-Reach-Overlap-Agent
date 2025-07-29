@@ -5,8 +5,7 @@ __pycache__/
 *.pyd
 
 # Ignore environment files
-.env          # actual environment file should not be tracked
-!.env.example # allow the example file to be tracked
+.env
 
 # Ignore service account keys and secrets
 *.json        # e.g., GCP service account keys

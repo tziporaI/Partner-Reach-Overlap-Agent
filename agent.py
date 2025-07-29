@@ -1,16 +1,18 @@
 from google.adk.agents import LlmAgent
 from google.adk.tools.agent_tool import AgentTool
+
 from .tools.big_qwery_tools import execute_queries
 from .tools.slack_tools import send_to_slack_visual
+
 from .agents.visual_agent import visual_agent
 from .agents.format_agent import format_agent
+
 from google.adk.tools.mcp_tool import StdioConnectionParams
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from mcp import StdioServerParameters
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
+import os
+
 SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
 CHANNEL_ID = os.getenv("CHANNEL_ID")
 SLACK_TEAM_ID = os.getenv("SLACK_TEAM_ID")
@@ -79,7 +81,7 @@ root_agent = LlmAgent(
     ==========================
     📌 STEP 3: Slack Response
     ==========================
-    You must send both parts to Slack using the `send_to_slack_str` tool and `send_to_slack_visual` tool.
+    You must send both parts to Slack using the `slack_post_message` tool and `send_to_slack_visual` tool.
     
     1. Send the formatted summary string `result_data` Slack MCP tools.
      → 
@@ -103,20 +105,23 @@ root_agent = LlmAgent(
             connection_params=StdioConnectionParams(
                 server_params=StdioServerParameters(
                     command='npx',
-                    args=['-y', '@modelcontextprotocol/server-slack'],
-
+                    args=[
+                        '-y',
+                        '@modelcontextprotocol/server-slack',
+                    ],
                     env={
                         "SLACK_BOT_TOKEN": SLACK_BOT_TOKEN,
                         "CHANNEL_ID": CHANNEL_ID,
-                        "SLACK_TEAM_ID": SLACK_TEAM_ID,
-                        "MCP_REQUEST_TIMEOUT": "30"
+                        "SLACK_TEAM_ID": SLACK_TEAM_ID
                     },
-                    tool_filter=["slack_post_message"],
-
-                )
-            )
+                ),
+            ),
+            tool_filter=["slack_post_message"],
         ),
-        execute_queries,send_to_slack_visual, AgentTool(visual_agent), AgentTool(format_agent)
+        execute_queries,
+        send_to_slack_visual,
+        AgentTool(visual_agent),
+        AgentTool(format_agent)
     ],
 )
 
