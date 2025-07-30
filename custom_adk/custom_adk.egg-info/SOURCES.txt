@@ -1,0 +1,9 @@
+setup.py
+custom_adk.egg-info/PKG-INFO
+custom_adk.egg-info/SOURCES.txt
+custom_adk.egg-info/dependency_links.txt
+custom_adk.egg-info/top_level.txt
+google/__init__.py
+google/adk/__init__.py
+google/adk/agents/__init__.py
+google/adk/agents/remote_agent.py
