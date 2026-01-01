@@ -6,6 +6,21 @@ Its purpose is to help evaluate the performance of media sources based on reach,
 
 ---
 
+## Demo Video 
+The video shows an end-to-end run of the agent in the **Google ADK Web UI**.  
+A user submits an analysis request with parameters (app, date range, campaign, and media sources), and the agent:
+
+- invokes **execute_queries** to pull reach/overlap metrics from **BigQuery**
+- runs a **formatting step** to produce a structured “Media Performance Summary Report”
+- triggers a **visualization step** (e.g., overlap matrix / charts) and stores artifacts in **GCS**
+- posts the final summary and visual outputs directly to **Slack**
+
+You can also see the ADK **Trace/Events** view, highlighting each tool call and the routing flow between agent steps.
+
+
+https://github.com/user-attachments/assets/6d7ced0e-b909-4365-af1e-46449c475f11
+
+
 ## 📌 Purpose
 
 This agent is designed to assist marketers and analysts in answering key media planning questions:
